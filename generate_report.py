@@ -68,10 +68,8 @@ class NumberedCanvas(canvas.Canvas):
         self.setLineWidth(0.5)
         self.line(54, 792, 541, 792)
 
-        # Footer
-        self.line(54, 45, 541, 45)
-        self.drawString(54, 32, "Nhóm SV: Trần Bá Minh Quân - Đặng Thế Lâm Anh - Hồng Chấn Phước")
-        page_str = f"Trang {self._pageNumber} / {page_count}"
+        # Footer: Chỉ để số trang đơn giản, tự nhiên như Word
+        page_str = f"Trang {self._pageNumber}"
         self.drawRightString(541, 32, page_str)
         self.restoreState()
 
