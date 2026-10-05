@@ -11,3 +11,6 @@ ehthumbs.db
 # IDEs
 .vscode/
 .idea/
+
+# Course slides
+slide/

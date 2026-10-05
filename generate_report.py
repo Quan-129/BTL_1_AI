@@ -134,8 +134,8 @@ def build_pdf_report(filename="BaoCao_BTL1_Minesweeper.pdf"):
         fontName='Times-Bold',
         fontSize=12,
         leading=16,
-        spaceBefore=10,
-        spaceAfter=4,
+        spaceBefore=7,
+        spaceAfter=2,
         textColor=colors.HexColor("#1B5E20"),
         keepWithNext=True
     )
@@ -355,13 +355,13 @@ def build_pdf_report(filename="BaoCao_BTL1_Minesweeper.pdf"):
     story.append(HRFlowable(width="100%", thickness=1, color=colors.HexColor("#0D47A1"), spaceBefore=2, spaceAfter=6))
 
     story.append(Paragraph("3.1. Mục đích và phạm vi ứng dụng", h2))
-    story.append(Paragraph("Khi một ô có giá trị bằng <code>0</code> (nghĩa là cả 8 ô xung quanh đều không chứa mìn) được mở, theo luật chơi, hệ thống phải tự động mở lan tỏa toàn bộ các ô lân cận. Nếu một ô lân cận tiếp tục là ô 0, quá trình lan tỏa tiếp tục được kích hoạt đệ quy/lặp cho đến khi biên của vùng mở chạm vào các ô có chứa số (từ 1 đến 8). Đồ án đã cài đặt trọn vẹn cả hai thuật toán tìm kiếm không có thông tin (Uninformed Search) cơ bản: <b>BFS</b> và <b>DFS</b>.", body))
+    story.append(Paragraph("Khi một ô có giá trị bằng <code>0</code> (nghĩa là cả 8 ô xung quanh đều không chứa mìn) được mở, theo luật chơi, hệ thống phải tự động mở lan tỏa toàn bộ các ô lân cận. Nếu một ô lân cận tiếp tục là ô 0, quá trình lan tỏa tiếp tục được kích hoạt cho đến khi chạm vào các ô có chứa số (từ 1 đến 8). Đồ án đã cài đặt trọn vẹn cả hai thuật toán tìm kiếm không có thông tin (Uninformed Search) cơ bản trong <b>Bài giảng Tuần 1</b> của môn học: <b>BFS</b> và <b>DFS</b>.", body))
 
     story.append(Paragraph("3.2. Thuật toán Breadth-First Search (BFS)", h2))
-    story.append(Paragraph("BFS duyệt theo từng tầng ô lân cận, sử dụng cấu trúc dữ liệu hàng đợi FIFO (First-In, First-Out) thông qua <code>collections.deque</code> trong Python. Thuật toán đảm bảo các ô gần vị trí click được mở trước theo hình gợn sóng đồng tâm.", body))
+    story.append(Paragraph("Theo đúng lý thuyết bài giảng, BFS duyệt theo từng tầng ô lân cận, sử dụng cấu trúc dữ liệu hàng đợi FIFO (First-In, First-Out) thông qua <code>collections.deque</code> trong Python. Thuật toán đảm bảo các ô gần vị trí click được mở trước theo hình gợn sóng đồng tâm.", body))
 
     # Mã giả BFS
-    bfs_code = """<b>Thuật toán 1: BFS Flood Fill</b>
+    bfs_code = """<b>Thuật toán 1: BFS Flood Fill (Áp dụng hàng đợi FIFO Queue)</b>
 Input: Tọa độ bắt đầu (start_r, start_c), Ma trận bàn cờ Board
 Output: Danh sách các ô an toàn đã được mở
 1: Khởi tạo Queue Q <- [(start_r, start_c)], Visited <- {(start_r, start_c)}
@@ -382,28 +382,28 @@ Output: Danh sách các ô an toàn đã được mở
         ('PADDING', (0,0), (-1,-1), 6),
     ]))
     story.append(box_bfs)
-    story.append(Spacer(1, 8))
+    story.append(Spacer(1, 6))
 
     story.append(Paragraph("3.3. Thuật toán Depth-First Search (DFS)", h2))
-    story.append(Paragraph("DFS đi sâu theo từng nhánh lân cận trước khi quay lui. Để tránh lỗi tràn ngăn xếp đệ quy (RecursionError) khi bàn cờ có kích thước lớn, nhóm cài đặt DFS khử đệ quy bằng cấu trúc dữ liệu ngăn xếp tường minh LIFO (Last-In, First-Out) với danh sách Python.", body))
+    story.append(Paragraph("Slide Tuần 1 phân biệt rõ hai cách cài đặt DFS: <i>DFS đệ quy (recursive)</i> và <i>DFS lặp khử đệ quy (iterative với Stack)</i>. Trong Python, đệ quy sâu dễ gây lỗi tràn ngăn xếp (RecursionError) khi gặp bàn cờ rộng. Do đó, nhóm hiện thực <b>Iterative DFS</b> sử dụng ngăn xếp tường minh LIFO (Last-In, First-Out) trên bộ nhớ Heap, đảm bảo an toàn tuyệt đối và tính hoàn chỉnh.", body))
 
     story.append(Paragraph("3.4. So sánh độ phức tạp tính toán giữa BFS và DFS", h2))
     
     cmp_algo_data = [
-        [Paragraph("<b>Tiêu chí so sánh</b>", body), Paragraph("<b>Thuật toán BFS</b>", body), Paragraph("<b>Thuật toán DFS</b>", body)],
+        [Paragraph("<b>Tiêu chí so sánh</b>", body), Paragraph("<b>Thuật toán BFS</b>", body), Paragraph("<b>Thuật toán DFS (Iterative)</b>", body)],
         [Paragraph("<b>Cấu trúc dữ liệu</b>", body), Paragraph("Hàng đợi FIFO (<code>collections.deque</code>)", body), Paragraph("Ngăn xếp LIFO (Explicit Stack)", body)],
         [Paragraph("<b>Độ phức tạp thời gian</b>", body), Paragraph("<i>O(V + E)</i> với <i>V = M x N</i>", body), Paragraph("<i>O(V + E)</i> với <i>V = M x N</i>", body)],
         [Paragraph("<b>Độ phức tạp không gian</b>", body), Paragraph("<i>O(W)</i> (<i>W</i>: độ rộng lớn nhất của biên loang)", body), Paragraph("<i>O(D)</i> (<i>D</i>: độ sâu tối đa của chuỗi ô số 0)", body)],
         [Paragraph("<b>Trải nghiệm trực quan</b>", body), Paragraph("Loang đều hình tròn lan tỏa rất tự nhiên", body), Paragraph("Loang ngoằn ngoèo theo một vệt dài rồi quay lui", body)],
-        [Paragraph("<b>Tính an toàn bộ nhớ</b>", body), Paragraph("Tuyệt đối an toàn trên Heap memory", body), Paragraph("An toàn do dùng Stack vùng nhớ Heap thay vì Call-stack", body)],
+        [Paragraph("<b>Tính an toàn bộ nhớ</b>", body), Paragraph("Tuyệt đối an toàn trên Heap memory", body), Paragraph("An toàn tuyệt đối do khử đệ quy bằng Stack", body)],
     ]
     cmp_table = Table(cmp_algo_data, colWidths=[120, 180, 180])
     cmp_table.setStyle(TableStyle([
         ('BACKGROUND', (0,0), (-1,0), colors.HexColor("#EDE7F6")),
         ('GRID', (0,0), (-1,-1), 0.5, colors.HexColor("#B39DDB")),
         ('VALIGN', (0,0), (-1,-1), 'MIDDLE'),
-        ('TOPPADDING', (0,0), (-1,-1), 4),
-        ('BOTTOMPADDING', (0,0), (-1,-1), 4),
+        ('TOPPADDING', (0,0), (-1,-1), 3),
+        ('BOTTOMPADDING', (0,0), (-1,-1), 3),
     ]))
     story.append(cmp_table)
 
@@ -415,7 +415,7 @@ Output: Danh sách các ô an toàn đã được mở
     story.append(Paragraph("CHƯƠNG 4: NGHIÊN CỨU HEURISTIC VÀ AI TỰ GIẢI", h1))
     story.append(HRFlowable(width="100%", thickness=1, color=colors.HexColor("#0D47A1"), spaceBefore=2, spaceAfter=6))
 
-    story.append(Paragraph("Đề tài đặt ra câu hỏi cốt lõi: <i>'What heuristics could be used in the game?'</i>. Dưới đây là phân tích khoa học và các kỹ thuật Heuristic mà nhóm đã nghiên cứu, đề xuất và cài đặt thành công.", body))
+    story.append(Paragraph("Theo <b>Bài giảng Tuần 2</b> của TS. Nguyễn Quốc Minh, thuật ngữ <i>Heuristic</i> (nguồn gốc Hy Lạp: 'heurisko' - tôi tìm kiếm, phát hiện) là hàm đánh giá đóng vai trò như một lời gợi ý (hint) dẫn dắt thuật toán đưa ra quyết định khi không thể duyệt cạn toàn bộ không gian trạng thái. Kết hợp kiến thức về <b>Bài toán thỏa mãn ràng buộc CSP & Cắt tỉa nhánh (Tuần 4)</b> và <b>Lý thuyết xác suất ra quyết định bất định (Tuần 5)</b>, nhóm xây dựng tác tử AI 4 tầng hoàn chỉnh:", body))
 
     story.append(Paragraph("4.1. Tầng 1: Suy diễn logic tất định điểm đơn (Single-Point Deterministic Rules)", h2))
     story.append(Paragraph("Với mỗi ô số <i>C = (r, c)</i> đã mở có giá trị <i>V</i>, gọi <i>F(C)</i> là tập hợp các ô lân cận đã cắm cờ và <i>U(C)</i> là tập hợp các ô lân cận chưa mở và chưa cắm cờ. Số mìn còn thiếu của ô <i>C</i> được tính bởi: <i>M<sub>needed</sub>(C) = V - |F(C)|</i>.", body))
@@ -433,21 +433,20 @@ Output: Danh sách các ô an toàn đã được mở
     story.append(Paragraph("Khi cả Tầng 1 và Tầng 2 đều bế tắc (trường hợp bắt buộc phải phán đoán may rủi), AI sử dụng hàm đánh giá Heuristic xác suất <i>h<sub>prob</sub>(u)</i> để tìm ra ô có rủi ro thấp nhất:", body))
     
     math_box = Table([[Paragraph(
-        "<b>1. Đối với các ô biên (Frontier Cells):</b> Mỗi ô <i>u</i> nằm kề ít nhất một ô số <i>k</i>, xác suất cục bộ được ước lượng theo cận trên thận trọng:<br/>"
-        "&nbsp;&nbsp;&nbsp;&nbsp;<b>P<sub>local</sub>(u) = max <sub>k trong Neighbors(u)</sub> [ M<sub>needed</sub>(k) / |U(k)| ]</b><br/><br/>"
-        "<b>2. Đối với các ô biệt lập ngoài biên (Isolated Cells):</b> Xác suất mìn được tính theo mật độ mìn toàn cục còn lại:<br/>"
-        "&nbsp;&nbsp;&nbsp;&nbsp;<b>P<sub>isolated</sub> = max(0, M<sub>total_rem</sub> - M<sub>frontier_est</sub>) / |Isolated_Cells|</b><br/><br/>"
-        "<b>Chiến lược chọn lựa (Selection Policy):</b><br/>"
-        "&nbsp;&nbsp;&nbsp;&nbsp;<b>u* = arg min P(u) với mọi ô u chưa mở</b>",
+        "<b>1. Đối với các ô biên (Frontier Cells):</b> Xác suất cục bộ theo cận trên thận trọng:<br/>"
+        "&nbsp;&nbsp;&nbsp;&nbsp;<b>P<sub>local</sub>(u) = max <sub>k &isin; Neighbors(u)</sub> [ M<sub>needed</sub>(k) / |U(k)| ]</b><br/>"
+        "<b>2. Đối với các ô biệt lập ngoài biên (Isolated Cells):</b> Xác suất theo mật độ mìn toàn cục:<br/>"
+        "&nbsp;&nbsp;&nbsp;&nbsp;<b>P<sub>isolated</sub> = max(0, M<sub>total_rem</sub> - M<sub>frontier_est</sub>) / |Isolated_Cells|</b><br/>"
+        "<b>Chiến lược chọn lựa (Selection Policy):</b>&nbsp;&nbsp;<b>u* = arg min P(u) với mọi ô u chưa mở</b>",
         code_style
     )]], colWidths=[480])
     math_box.setStyle(TableStyle([
         ('BACKGROUND', (0,0), (-1,-1), colors.HexColor("#FFF8E1")),
         ('BOX', (0,0), (-1,-1), 1, colors.HexColor("#FFA000")),
-        ('PADDING', (0,0), (-1,-1), 8),
+        ('PADDING', (0,0), (-1,-1), 4),
     ]))
     story.append(math_box)
-    story.append(Spacer(1, 8))
+    story.append(Spacer(1, 4))
 
     story.append(Paragraph("4.4. Tầng 4: Heuristic Tối Đa Hóa Thông Tin (Information Gain Heuristic)", h2))
     story.append(Paragraph("Trong trường hợp có nhiều ô ứng viên cùng đạt xác suất mìn tối thiểu bằng nhau (ví dụ: các ô biệt lập đều có <i>P = 12%</i> hoặc tình huống 50-50 với <i>P = 50%</i>), AI sử dụng <b>Heuristic độ lợi thông tin</b> làm tiêu chí phá vỡ thế hòa (Tie-breaker):", body))
@@ -462,8 +461,8 @@ Output: Danh sách các ô an toàn đã được mở
     story.append(Paragraph("CHƯƠNG 5: KẾT QUẢ THỰC NGHIỆM VÀ PHÂN TÍCH ĐÁNH GIÁ", h1))
     story.append(HRFlowable(width="100%", thickness=1, color=colors.HexColor("#0D47A1"), spaceBefore=2, spaceAfter=6))
 
-    story.append(Paragraph("5.1. Thiết lập kịch bản thử nghiệm tự động", h2))
-    story.append(Paragraph("Để đánh giá khách quan năng lực của tác tử AI và hiệu năng của các thuật toán tìm kiếm, nhóm đã thực thi chương trình kiểm thử tự động <code>benchmark.py</code>. Mỗi cấu hình được chạy liên tục <b>100 ván đấu độc lập</b> với hạt giống ngẫu nhiên (random seed) khác nhau. Các chỉ số đo lường gồm: Tỷ lệ thắng (Win Rate), Số nước đi trung bình, Số lần bắt buộc phải đoán (Guesses), và Thời gian giải trung bình mỗi ván.", body))
+    story.append(Paragraph("5.1. Thiết lập kịch bản thử nghiệm tự động (Monte Carlo Simulation)", h2))
+    story.append(Paragraph("Để đánh giá khách quan năng lực của tác tử AI và hiệu năng thuật toán, nhóm áp dụng phương pháp mô phỏng Monte Carlo (kiến thức Bài giảng Tuần 5): thực thi tự động <b>100 ván đấu độc lập</b> với hạt giống ngẫu nhiên (random seed) cho từng cấu hình bàn cờ để thu thập các ước lượng thống kê hội tụ về Tỷ lệ thắng (Win Rate), Số nước đi trung bình, Số lần bắt buộc phải đoán (Guesses) và Thời gian giải trung bình.", body))
 
     story.append(Paragraph("5.2. Bảng kết quả thực nghiệm chi tiết", h2))
 
@@ -516,7 +515,7 @@ Output: Danh sách các ô an toàn đã được mở
     story.append(HRFlowable(width="100%", thickness=1, color=colors.HexColor("#0D47A1"), spaceBefore=2, spaceAfter=6))
     story.append(Paragraph("[1] Russell, S., & Norvig, P. (2020). <i>Artificial Intelligence: A Modern Approach (4th ed.)</i>. Pearson.", bullet))
     story.append(Paragraph("[2] Kaye, R. (2000). <i>Minesweeper is NP-complete</i>. The Mathematical Intelligencer, 22(2), 9–15.", bullet))
-    story.append(Paragraph("[3] Tài liệu bài giảng môn <i>Nhập môn Trí Tuệ Nhân Tạo (CO3061)</i>, Trường ĐH Bách Khoa - ĐHQG TP.HCM.", bullet))
+    story.append(Paragraph("[3] TS. Nguyễn Quốc Minh. <i>Slide bài giảng môn Nhập môn Trí Tuệ Nhân Tạo (CO3061)</i>: Tuần 1 (Searching: BFS/DFS), Tuần 2 (Heuristics), Tuần 4 (Backtracking & CSP), Tuần 5 (Monte Carlo Simulation), Trường ĐH Bách Khoa - ĐHQG TP.HCM, 2026.", bullet))
 
     doc.build(story, canvasmaker=NumberedCanvas)
     print(f"[THÀNH CÔNG] Đã tạo file báo cáo PDF: {filename}")
