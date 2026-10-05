@@ -1,6 +1,6 @@
 """
 generate_report.py - Automatically generates the complete academic PDF report for Topic 1: Minesweeper.
-Author: Tran Ba Minh Quan (2353015) & Team
+Author: Group Students (CO3061) - HCMUT
 Course: Introduction to Artificial Intelligence (CO3061) - HCMUT
 """
 
@@ -74,7 +74,7 @@ class NumberedCanvas(canvas.Canvas):
         self.restoreState()
 
 
-def build_pdf_report(filename="BaoCao_BTL1_Minesweeper_TranBaMinhQuan.pdf"):
+def build_pdf_report(filename="BaoCao_BTL1_Minesweeper.pdf"):
     doc = SimpleDocTemplate(
         filename,
         pagesize=A4,

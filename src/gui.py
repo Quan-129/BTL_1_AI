@@ -1,6 +1,6 @@
 """
 gui.py - Graphical User Interface for Minesweeper with AI and Algorithm Visualizer.
-Author: Tran Ba Minh Quan (2353015) & Team
+Author: Group Students (CO3061) - HCMUT
 Course: Introduction to Artificial Intelligence (CO3061) - HCMUT
 """
 

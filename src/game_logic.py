@@ -1,6 +1,6 @@
 """
 game_logic.py - Core Minesweeper logic with BFS and DFS Flood Fill.
-Author: Tran Ba Minh Quan (2353015) & Team
+Author: Group Students (CO3061) - HCMUT
 Course: Introduction to Artificial Intelligence (CO3061) - HCMUT
 """
 

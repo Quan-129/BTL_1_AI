@@ -1,6 +1,6 @@
 """
 benchmark.py - Automated experiments and evaluation for Minesweeper AI.
-Author: Tran Ba Minh Quan (2353015) & Team
+Author: Group Students (CO3061) - HCMUT
 Course: Introduction to Artificial Intelligence (CO3061) - HCMUT
 """
 

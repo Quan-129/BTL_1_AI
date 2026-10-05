@@ -1,6 +1,6 @@
 """
 ai_solver.py - Comprehensive AI Agent and Heuristics for Minesweeper.
-Author: Tran Ba Minh Quan (2353015) & Team
+Author: Group Students (CO3061) - HCMUT
 Course: Introduction to Artificial Intelligence (CO3061) - HCMUT
 
 This module answers the core assignment question:
