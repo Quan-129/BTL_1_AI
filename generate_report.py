@@ -9,7 +9,7 @@ import sys
 from reportlab.lib.pagesizes import A4
 from reportlab.lib import colors
 from reportlab.platypus import (
-    SimpleDocTemplate, Paragraph, Spacer, Table, TableStyle, PageBreak, KeepTogether, HRFlowable
+    SimpleDocTemplate, Paragraph, Spacer, Table, TableStyle, PageBreak, KeepTogether, HRFlowable, Image
 )
 from reportlab.lib.styles import getSampleStyleSheet, ParagraphStyle
 from reportlab.lib.units import cm, mm
@@ -188,19 +188,28 @@ def build_pdf_report(filename="BaoCao_BTL1_Minesweeper_TranBaMinhQuan.pdf"):
     # ==========================================
     # TRANG BÌA (COVER PAGE)
     # ==========================================
-    story.append(Spacer(1, 10))
+    story.append(Spacer(1, 5))
     story.append(Paragraph("ĐẠI HỌC QUỐC GIA THÀNH PHỐ HỒ CHÍ MINH<br/><b>TRƯỜNG ĐẠI HỌC BÁCH KHOA</b><br/><b>KHOA KHOA HỌC VÀ KỸ THUẬT MÁY TÍNH</b>", title_univ))
-    story.append(Spacer(1, 10))
-    story.append(HRFlowable(width="60%", thickness=1.5, color=colors.HexColor("#0D47A1"), spaceBefore=5, spaceAfter=20))
-    story.append(Spacer(1, 40))
+    story.append(HRFlowable(width="60%", thickness=1.5, color=colors.HexColor("#0D47A1"), spaceBefore=4, spaceAfter=8))
+    
+    # Chèn Logo Trường ĐH Bách Khoa
+    logo_path = os.path.join(os.path.dirname(__file__), "logo.png")
+    if os.path.exists(logo_path):
+        # Kích thước tỷ lệ ảnh gốc (531x376)
+        logo_img = Image(logo_path, width=78, height=55)
+        logo_img.hAlign = 'CENTER'
+        story.append(logo_img)
+        story.append(Spacer(1, 8))
+    else:
+        story.append(Spacer(1, 15))
 
     story.append(Paragraph("BÁO CÁO BÀI TẬP LỚN 1 (HOMEWORK 1)", cover_subject))
-    story.append(Spacer(1, 8))
+    story.append(Spacer(1, 4))
     story.append(Paragraph("MÔN: NHẬP MÔN TRÍ TUỆ NHÂN TẠO (CO3061)", cover_subject))
-    story.append(Spacer(1, 20))
+    story.append(Spacer(1, 10))
 
     story.append(Paragraph("TOPIC 1: MINESWEEPER<br/>THIẾT KẾ TRÒ CHƠI DÒ MÌN, THUẬT TOÁN TÌM KIẾM BFS/DFS VÀ CÁC CHIẾN LƯỢC HEURISTIC CHO AI TỰ GIẢI", cover_title))
-    story.append(Spacer(1, 45))
+    story.append(Spacer(1, 14))
 
     # Thông tin giảng viên & sinh viên
     info_table_data = [
@@ -212,31 +221,33 @@ def build_pdf_report(filename="BaoCao_BTL1_Minesweeper_TranBaMinhQuan.pdf"):
     info_table = Table(info_table_data, colWidths=[140, 260])
     info_table.setStyle(TableStyle([
         ('VALIGN', (0,0), (-1,-1), 'TOP'),
-        ('BOTTOMPADDING', (0,0), (-1,-1), 4),
+        ('BOTTOMPADDING', (0,0), (-1,-1), 2),
     ]))
     story.append(info_table)
-    story.append(Spacer(1, 35))
+    story.append(Spacer(1, 12))
 
-    # Bảng phân công nhiệm vụ
+    # Bảng phân công nhiệm vụ đầy đủ 5 thành viên
     contrib_data = [
         [Paragraph("<b>Họ và tên</b>", body), Paragraph("<b>MSSV</b>", body), Paragraph("<b>Nhiệm vụ chính</b>", body), Paragraph("<b>Đóng góp</b>", body)],
-        [Paragraph("<b>Trần Bá Minh Quân</b>", body), Paragraph("<b>2353015</b>", body), Paragraph("Thiết kế Giao diện (GUI), Tích hợp & Viết Báo cáo", body), Paragraph("<b>33.4%</b>", body)],
-        [Paragraph("Đặng Thế Lâm Anh", body), Paragraph("(Thành viên)", body), Paragraph("Thiết kế Game Logic, Bàn cờ & Thuật toán loang (BFS/DFS)", body), Paragraph("<b>33.3%</b>", body)],
-        [Paragraph("Hồng Chấn Phước", body), Paragraph("(Thành viên)", body), Paragraph("Nghiên cứu Heuristic xác suất & Cài đặt AI Auto-Solver", body), Paragraph("<b>33.3%</b>", body)],
+        [Paragraph("<b>Trần Bá Minh Quân</b>", body), Paragraph("<b>2353015</b>", body), Paragraph("Thiết kế Giao diện (GUI), Tích hợp & Viết Báo cáo", body), Paragraph("<b>20%</b>", body)],
+        [Paragraph("Đặng Thế Lâm Anh", body), Paragraph("2352027", body), Paragraph("Thiết kế Game Logic, Bàn cờ & Thuật toán loang (BFS/DFS)", body), Paragraph("<b>20%</b>", body)],
+        [Paragraph("Nguyễn Trần Hoàng Khánh", body), Paragraph("2352530", body), Paragraph("Cài đặt tối ưu thuật toán BFS/DFS & Kiểm thử bàn cờ", body), Paragraph("<b>20%</b>", body)],
+        [Paragraph("Hồng Chấn Phước", body), Paragraph("2352963", body), Paragraph("Nghiên cứu Heuristic xác suất & Cài đặt AI Auto-Solver", body), Paragraph("<b>20%</b>", body)],
+        [Paragraph("Hồ Gia Bảo", body), Paragraph("2352089", body), Paragraph("Xây dựng Benchmark thực nghiệm tự động & Đánh giá hiệu năng", body), Paragraph("<b>20%</b>", body)],
     ]
-    contrib_table = Table(contrib_data, colWidths=[130, 75, 215, 60])
+    contrib_table = Table(contrib_data, colWidths=[130, 65, 225, 60])
     contrib_table.setStyle(TableStyle([
         ('BACKGROUND', (0, 0), (-1, 0), colors.HexColor("#E3F2FD")),
         ('GRID', (0, 0), (-1, -1), 0.5, colors.HexColor("#90CAF9")),
         ('ALIGN', (1, 1), (1, -1), 'CENTER'),
         ('ALIGN', (3, 0), (3, -1), 'CENTER'),
         ('VALIGN', (0, 0), (-1, -1), 'MIDDLE'),
-        ('TOPPADDING', (0, 0), (-1, -1), 4),
-        ('BOTTOMPADDING', (0, 0), (-1, -1), 4),
+        ('TOPPADDING', (0, 0), (-1, -1), 2.5),
+        ('BOTTOMPADDING', (0, 0), (-1, -1), 2.5),
     ]))
     story.append(contrib_table)
 
-    story.append(Spacer(1, 40))
+    story.append(Spacer(1, 14))
     story.append(Paragraph("TP. HỒ CHÍ MINH, THÁNG 10/2026", subtitle_univ))
     story.append(PageBreak())
 

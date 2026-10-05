@@ -422,7 +422,9 @@ class MinesweeperGUI:
             "BÀI TẬP LỚN 1 - TOPIC 1: MINESWEEPER\n\n"
             "Nhóm sinh viên thực hiện:\n"
             "1. Trần Bá Minh Quân - MSSV: 2353015 (Thiết kế GUI & Báo cáo)\n"
-            "2. Đặng Thế Lâm Anh (Logic Bàn cờ, BFS/DFS)\n"
-            "3. Hồng Chấn Phước (Thuật toán Heuristic & AI Solver)\n"
+            "2. Đặng Thế Lâm Anh - MSSV: 2352027 (Game Logic, BFS/DFS)\n"
+            "3. Nguyễn Trần Hoàng Khánh - MSSV: 2352530 (Tối ưu BFS/DFS, Kiểm thử)\n"
+            "4. Hồng Chấn Phước - MSSV: 2352963 (Thuật toán Heuristic & AI Solver)\n"
+            "5. Hồ Gia Bảo - MSSV: 2352089 (Benchmark tự động & Đánh giá)\n"
         )
         messagebox.showinfo("Thông tin đồ án", info)
