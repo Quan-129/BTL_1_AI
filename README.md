@@ -10,7 +10,7 @@
 
 | STT | Họ và tên | MSSV | Nhiệm vụ đảm nhiệm | Đóng góp (%) |
 | :---: | :--- | :---: | :--- | :---: |
-| 1 | Trần Bá Minh Quân | 2353015 | Thiết kế Giao diện (GUI), Tích hợp hệ thống & Viết Báo cáo PDF | 20% |
+| 1 | **Trần Bá Minh Quân** | **2353015** | Thiết kế Giao diện (GUI), Tích hợp hệ thống & Viết Báo cáo PDF | **20%** |
 | 2 | **Đặng Thế Lâm Anh** | **2352027** | Thiết kế Game Logic, Bàn cờ & Thuật toán loang (BFS/DFS) | **20%** |
 | 3 | **Nguyễn Trần Hoàng Khánh** | **2352530** | Cài đặt tối ưu thuật toán BFS/DFS & Kiểm thử bàn cờ | **20%** |
 | 4 | **Hồng Chấn Phước** | **2352963** | Nghiên cứu Heuristic xác suất & Cài đặt AI Auto-Solver | **20%** |
@@ -32,7 +32,7 @@ BTL_1/
 │   └── benchmark.py         # Kiểm thử tự động hàng trăm ván đấu để thu thập thống kê Win Rate và Thời gian
 ├── main.py                  # File khởi động chính của ứng dụng
 ├── generate_report.py       # Mã nguồn tự động xuất báo cáo học thuật chuẩn PDF (ReportLab)
-├── BaoCao_BTL1_Minesweeper_TranBaMinhQuan.pdf # Báo cáo PDF hoàn chỉnh theo chuẩn môn học
+├── BaoCao_BTL1_Minesweeper.pdf # Báo cáo PDF hoàn chỉnh theo chuẩn môn học
 └── README.md                # Tài liệu hướng dẫn cài đặt và sử dụng
 ```
 
@@ -84,4 +84,4 @@ python src/benchmark.py
 python generate_report.py
 ```
 
-File PDF đầu ra: `BaoCao_BTL1_Minesweeper_TranBaMinhQuan.pdf`.
+File PDF đầu ra: `BaoCao_BTL1_Minesweeper.pdf`.
