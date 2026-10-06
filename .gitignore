@@ -14,3 +14,7 @@ ehthumbs.db
 
 # Course slides
 slide/
+
+# Tai lieu cam nang ca nhan (khong push len git)
+CamNang_*.pdf
+generate_handbook.py
