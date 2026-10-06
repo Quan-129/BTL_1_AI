@@ -56,6 +56,7 @@ class MinesweeperGUI:
         self._build_control_panel()
         self._build_board()
         self._build_status_bar()
+        self._adjust_window_size()
 
         # Timer loop
         self._update_timer()
@@ -183,12 +184,23 @@ class MinesweeperGUI:
             self.buttons.append(row_btns)
 
     def _build_status_bar(self):
-        """Builds bottom status message bar."""
+        """Builds bottom status message bar with fixed height and text wrapping."""
         self.status_bar = tk.Label(
             self.root, text="Sẵn sàng! Click chuột trái để mở ô, click chuột phải để cắm cờ.",
-            font=("Segoe UI", 9), bd=1, relief=tk.SUNKEN, anchor=tk.W, padx=6, pady=3, bg="#ECEFF1"
+            font=("Segoe UI", 9), bd=1, relief=tk.SUNKEN, anchor=tk.W, justify=tk.LEFT,
+            padx=6, pady=3, bg="#ECEFF1", height=2
         )
         self.status_bar.pack(side=tk.BOTTOM, fill=tk.X)
+
+    def _adjust_window_size(self):
+        """Adjusts and locks window geometry based on current board size, preventing text jitter."""
+        self.root.geometry("")
+        self.root.update_idletasks()
+        w = max(360, self.root.winfo_reqwidth())
+        self.status_bar.config(wraplength=w - 16, height=2)
+        self.root.update_idletasks()
+        h = self.root.winfo_reqheight()
+        self.root.geometry(f"{w}x{h}")
 
     def _on_algo_change(self):
         """Updates flood algorithm on change."""
@@ -353,9 +365,9 @@ class MinesweeperGUI:
         self.current_rows = rows
         self.current_cols = cols
         self.current_mines = mines
-        self.restart_game()
+        self.restart_game(size_changed=True)
 
-    def restart_game(self):
+    def restart_game(self, size_changed: bool = False):
         """Resets the current game state."""
         if self.is_auto_playing:
             self.toggle_autoplay()
@@ -363,7 +375,18 @@ class MinesweeperGUI:
         self.btn_smiley.config(text="😊")
         self.game.reset(self.current_rows, self.current_cols, self.current_mines, self.flood_algo_var.get())
         self.lbl_timer.config(text="⏱️ 000")
-        self._build_board()
+
+        old_rows = len(self.buttons) if hasattr(self, "buttons") else 0
+        old_cols = len(self.buttons[0]) if old_rows > 0 else 0
+        if size_changed or old_rows != self.current_rows or old_cols != self.current_cols:
+            self._build_board()
+            self._adjust_window_size()
+        else:
+            for r in range(self.current_rows):
+                for c in range(self.current_cols):
+                    btn = self.buttons[r][c]
+                    btn.config(text="", bg=self.BG_UNREVEALED, fg="#000000", relief=tk.RAISED, bd=2)
+
         self._update_board_display()
         self.set_status("Ván mới đã sẵn sàng. Chúc bạn chơi vui vẻ!")
 
