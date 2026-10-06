@@ -108,7 +108,7 @@ class MinesweeperAI:
                     action=Move.FLAG,
                     row=target[0],
                     col=target[1],
-                    reason=f"Suy luận chắc chắn: Ô ({r}, {c}) thiếu {needed} mìn và chỉ còn đúng {len(unrev)} ô chưa mở $\\rightarrow$ Là mìn 100%.",
+                    reason=f"Suy luận chắc chắn: Ô ({r}, {c}) thiếu {needed} mìn và chỉ còn đúng {len(unrev)} ô chưa mở → Là mìn 100%.",
                     probability=1.0
                 )
 
