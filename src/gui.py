@@ -167,6 +167,12 @@ class MinesweeperGUI:
         self.board_frame = tk.Frame(self.root, bg="#B0BEC5", padx=6, pady=6, bd=3, relief=tk.SUNKEN)
         self.board_frame.pack()
 
+        # Fix row and column dimensions so individual cell states never scale or twitch the grid
+        for r in range(self.current_rows):
+            self.board_frame.grid_rowconfigure(r, uniform="cell")
+        for c in range(self.current_cols):
+            self.board_frame.grid_columnconfigure(c, uniform="cell")
+
         self.buttons = []
         cell_size = 28 if self.current_cols <= 9 else 24
 
@@ -250,7 +256,7 @@ class MinesweeperGUI:
                 cell = self.game.board[r][c]
 
                 if cell.is_revealed:
-                    btn.config(relief=tk.SUNKEN, bd=1)
+                    btn.config(relief=tk.SUNKEN, bd=2)
                     if cell.is_mine:
                         btn.config(text="💣", bg=self.BG_MINE_EXPLODED, fg="#B71C1C")
                     elif cell.neighbor_mines > 0:
@@ -262,10 +268,10 @@ class MinesweeperGUI:
                     else:
                         btn.config(text="", bg=self.BG_REVEALED)
                 elif cell.is_flagged:
-                    btn.config(text="🚩", bg=self.BG_UNREVEALED, fg="#D32F2F", relief=tk.RAISED)
+                    btn.config(text="🚩", bg=self.BG_UNREVEALED, fg="#D32F2F", relief=tk.RAISED, bd=2)
                 else:
                     if (r, c) not in self.hint_cells:
-                        btn.config(text="", bg=self.BG_UNREVEALED, relief=tk.RAISED)
+                        btn.config(text="", bg=self.BG_UNREVEALED, relief=tk.RAISED, bd=2)
 
     def _clear_hints(self):
         """Clears highlighted hint cells."""
