@@ -188,7 +188,7 @@ class MinesweeperGUI:
         self.status_bar = tk.Label(
             self.root, text="Sẵn sàng! Click chuột trái để mở ô, click chuột phải để cắm cờ.",
             font=("Segoe UI", 9), bd=1, relief=tk.SUNKEN, anchor=tk.W, justify=tk.LEFT,
-            padx=6, pady=3, bg="#ECEFF1", height=2
+            padx=8, pady=4, bg="#ECEFF1", height=3
         )
         self.status_bar.pack(side=tk.BOTTOM, fill=tk.X)
 
@@ -196,8 +196,8 @@ class MinesweeperGUI:
         """Adjusts and locks window geometry based on current board size, preventing text jitter."""
         self.root.geometry("")
         self.root.update_idletasks()
-        w = max(360, self.root.winfo_reqwidth())
-        self.status_bar.config(wraplength=w - 16, height=2)
+        w = max(390, self.root.winfo_reqwidth())
+        self.status_bar.config(wraplength=w - 16, height=3)
         self.root.update_idletasks()
         h = self.root.winfo_reqheight()
         self.root.geometry(f"{w}x{h}")
@@ -293,8 +293,8 @@ class MinesweeperGUI:
         btn = self.buttons[move.row][move.col]
         btn.config(bg=self.BG_HINT)
 
-        action_text = "CẮM CỜ" if move.action == Move.FLAG else "MỞ Ô"
-        self.set_status(f"[💡 GỢI Ý] {action_text} ({move.row}, {move.col}) | P(mìn): {move.probability:.1%} | {move.reason}")
+        action_text = "Cắm cờ" if move.action == Move.FLAG else "Mở ô"
+        self.set_status(f"[💡 GỢI Ý] {action_text} ({move.row}, {move.col}) (P={move.probability:.0%}): {move.reason}")
 
     def step_ai(self):
         """Executes a single step calculated by the AI."""

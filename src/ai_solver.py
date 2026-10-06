@@ -94,7 +94,7 @@ class MinesweeperAI:
                     action=Move.REVEAL,
                     row=target[0],
                     col=target[1],
-                    reason=f"Suy luận chắc chắn: Ô ({r}, {c}) đã có đủ cờ, các ô quanh nó an toàn 100%.",
+                    reason=f"Logic: Ô ({r}, {c}) đã đủ cờ → Các ô quanh an toàn 100%.",
                     probability=0.0
                 )
 
@@ -108,7 +108,7 @@ class MinesweeperAI:
                     action=Move.FLAG,
                     row=target[0],
                     col=target[1],
-                    reason=f"Suy luận chắc chắn: Ô ({r}, {c}) thiếu {needed} mìn và chỉ còn đúng {len(unrev)} ô chưa mở → Là mìn 100%.",
+                    reason=f"Logic: Ô ({r}, {c}) thiếu {needed} mìn, còn đúng {len(unrev)} ô chưa mở → Mìn 100%.",
                     probability=1.0
                 )
 
@@ -148,7 +148,7 @@ class MinesweeperAI:
                             action=Move.REVEAL,
                             row=target[0],
                             col=target[1],
-                            reason=f"Suy luận tập hợp CSP: Ô ({cell_b[0]}, {cell_b[1]}) chứa tập con ô ({cell_a[0]}, {cell_a[1]}), phần bù an toàn 100%.",
+                            reason=f"CSP: Ô ({cell_b[0]}, {cell_b[1]}) chứa tập con ({cell_a[0]}, {cell_a[1]}) → Phần bù an toàn 100%.",
                             probability=0.0
                         )
                     elif diff_mines == len(diff):
@@ -157,7 +157,7 @@ class MinesweeperAI:
                             action=Move.FLAG,
                             row=target[0],
                             col=target[1],
-                            reason=f"Suy luận tập hợp CSP: Ô ({cell_b[0]}, {cell_b[1]}) chứa tập con ô ({cell_a[0]}, {cell_a[1]}), phần bù là mìn 100%.",
+                            reason=f"CSP: Ô ({cell_b[0]}, {cell_b[1]}) chứa tập con ({cell_a[0]}, {cell_a[1]}) → Phần bù là mìn 100%.",
                             probability=1.0
                         )
 
